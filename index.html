@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christies Beach Hotel | Trade Ordering Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand-mark">CBH</div>
+      <div>
+        <p class="eyebrow">Christies Beach Hotel Bottle Shop</p>
+        <h1>Trade Ordering Portal</h1>
+        <p class="intro">For approved trade accounts only. Collection is available daily. Deliveries are completed on Thursdays.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="notice" class="notice">
+      <strong>Collection:</strong> Orders submitted before 1:00 pm may be available the same day. Orders submitted after 1:00 pm will generally be ready the following day.
+    </div>
+
+    <form id="orderForm" novalidate>
+      <section class="card">
+        <div class="section-heading">
+          <span class="step">1</span>
+          <div>
+            <h2>Account and contact details</h2>
+            <p>Please enter the details for the person placing this order.</p>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <label>
+            Trade account
+            <select id="account" required>
+              <option value="">Select account</option>
+              <option>Christies Beach Football Club</option>
+              <option>SOTSC</option>
+              <option>South Adelaide Panthers Soccer Club</option>
+            </select>
+          </label>
+
+          <label>
+            Contact name
+            <input id="contactName" type="text" required autocomplete="name" />
+          </label>
+
+          <label>
+            Mobile number
+            <input id="phone" type="tel" required autocomplete="tel" />
+          </label>
+
+          <label>
+            Email address
+            <input id="email" type="email" required autocomplete="email" />
+          </label>
+
+          <label>
+            Purchase order number <span class="optional">(optional)</span>
+            <input id="poNumber" type="text" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <span class="step">2</span>
+          <div>
+            <h2>Collection or delivery</h2>
+            <p>Delivery is available on Thursdays only.</p>
+          </div>
+        </div>
+
+        <div class="choice-row" role="radiogroup" aria-label="Order type">
+          <label class="choice-card">
+            <input type="radio" name="orderType" value="Collection" required />
+            <span>
+              <strong>Collection</strong>
+              <small>Available daily</small>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="orderType" value="Delivery" required />
+            <span>
+              <strong>Delivery</strong>
+              <small>Thursday only</small>
+            </span>
+          </label>
+        </div>
+
+        <div id="collectionFields" class="conditional hidden">
+          <div class="grid two">
+            <label>
+              Collection date
+              <input id="collectionDate" type="date" />
+            </label>
+            <label>
+              Preferred collection time
+              <input id="collectionTime" type="time" />
+            </label>
+          </div>
+          <p class="inline-note">Same-day collection orders must be submitted before 1:00 pm.</p>
+        </div>
+
+        <div id="deliveryFields" class="conditional hidden">
+          <div class="grid two">
+            <label>
+              Delivery Thursday
+              <select id="deliveryDate"></select>
+            </label>
+            <label>
+              Delivery instructions <span class="optional">(optional)</span>
+              <input id="deliveryInstructions" type="text" placeholder="Contact on arrival, deliver to clubrooms..." />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <span class="step">3</span>
+          <div>
+            <h2>Select products</h2>
+            <p>Search or browse by category. Enter only the products you require.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <input id="productSearch" type="search" placeholder="Search products..." />
+          <button type="button" id="clearOrder" class="secondary">Clear products</button>
+        </div>
+
+        <div id="productCategories"></div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <span class="step">4</span>
+          <div>
+            <h2>Product not listed</h2>
+            <p>Use this section for anything you cannot find above.</p>
+          </div>
+        </div>
+
+        <label class="toggle-line">
+          <input id="otherToggle" type="checkbox" />
+          I would like to request another product
+        </label>
+
+        <div id="otherFields" class="conditional hidden">
+          <div class="grid two">
+            <label>
+              Product name or description
+              <input id="otherProduct" type="text" />
+            </label>
+
+            <label>
+              Packaging
+              <select id="otherPackaging">
+                <option value="">Select</option>
+                <option>Cans</option>
+                <option>Bottles</option>
+                <option>Either is fine</option>
+                <option>Not sure</option>
+              </select>
+            </label>
+
+            <label>
+              Pack size
+              <select id="otherPackSize">
+                <option value="">Select</option>
+                <option>Single</option>
+                <option>4-pack</option>
+                <option>6-pack</option>
+                <option>10-pack</option>
+                <option>Carton / case</option>
+                <option>Wine case</option>
+                <option>Other</option>
+                <option>Not sure</option>
+              </select>
+            </label>
+
+            <label>
+              Number of packs
+              <input id="otherQuantity" type="number" min="0" step="1" />
+            </label>
+
+            <label>
+              Approximate number of drinks <span class="optional">(if unsure)</span>
+              <input id="approxDrinks" type="number" min="0" step="1" />
+            </label>
+
+            <label>
+              Accept a similar alternative?
+              <select id="acceptAlternative">
+                <option value="">Select</option>
+                <option>Yes, please contact me</option>
+                <option>No, leave it off the order</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-heading">
+          <span class="step">5</span>
+          <div>
+            <h2>Review and submit</h2>
+            <p>Your order is subject to stock availability and confirmation.</p>
+          </div>
+        </div>
+
+        <label>
+          Additional notes <span class="optional">(optional)</span>
+          <textarea id="notes" rows="4" placeholder="Special requests, event details, timing notes..."></textarea>
+        </label>
+
+        <div id="orderSummary" class="summary empty">No products selected yet.</div>
+
+        <label class="confirm-line">
+          <input id="terms" type="checkbox" required />
+          I understand this order is not confirmed until the bottle shop approves it.
+        </label>
+
+        <button id="submitButton" class="primary" type="submit">Submit trade order</button>
+        <p id="formMessage" class="form-message" aria-live="polite"></p>
+      </section>
+    </form>
+
+    <iframe name="submissionFrame" id="submissionFrame" class="hidden-frame" title="Order submission"></iframe>
+  </main>
+
+  <footer>
+    Christies Beach Hotel Bottle Shop · Trade Ordering Portal
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
