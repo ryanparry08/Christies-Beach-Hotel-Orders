@@ -1,88 +1,68 @@
-// Edit this list whenever you want to add, remove or rename products.
-// Products can stay broad at launch and become more account-specific after order history builds up.
-
+// CHRISTIES BEACH HOTEL TRADE PRODUCT CATALOGUE
 window.PRODUCTS = [
-  {
-    category: "Beer",
-    items: [
-      "Great Northern Super Crisp",
-      "Great Northern Original",
-      "Coopers Pale Ale",
-      "Coopers Sparkling Ale",
-      "Carlton Dry",
-      "Carlton Draught",
-      "Victoria Bitter",
-      "Hahn SuperDry",
-      "XXXX Gold",
-      "Corona",
-      "Asahi Super Dry",
-      "Peroni"
-    ]
-  },
-  {
-    category: "Cider",
-    items: [
-      "Somersby Apple",
-      "Somersby Pear",
-      "Strongbow",
-      "Mercury Cider"
-    ]
-  },
-  {
-    category: "RTDs / Premix",
-    items: [
-      "Canadian Club & Dry",
-      "Jack Daniel's & Cola",
-      "Bundaberg Rum & Cola",
-      "Jim Beam & Cola",
-      "Smirnoff Ice",
-      "Gordon's Pink Gin & Soda",
-      "Brookvale Union"
-    ]
-  },
-  {
-    category: "Wine",
-    items: [
-      "House Sauvignon Blanc",
-      "House Shiraz",
-      "House Sparkling",
-      "Jacob's Creek",
-      "19 Crimes",
-      "Pepperjack",
-      "Grant Burge"
-    ]
-  },
-  {
-    category: "Spirits",
-    items: [
-      "Gordon's Gin",
-      "Bombay Sapphire",
-      "Tanqueray",
-      "Bundaberg Rum",
-      "Captain Morgan",
-      "Jack Daniel's",
-      "Jim Beam",
-      "Johnnie Walker Red",
-      "Johnnie Walker Black",
-      "Absolut Vodka",
-      "Bacardi"
-    ]
-  },
-  {
-    category: "Soft Drinks, Water & Ice",
-    items: [
-      "Coca-Cola",
-      "Coca-Cola No Sugar",
-      "Diet Coke",
-      "Sprite",
-      "Fanta",
-      "Solo",
-      "Soda Water",
-      "Tonic Water",
-      "Dry Ginger Ale",
-      "Still Water",
-      "Sparkling Water",
-      "Bag of Ice"
-    ]
-  }
+  { category: "Beer", icon: "🍺", items: [
+    { name: "Great Northern Super Crisp", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Great Northern Original", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Coopers Pale Ale", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Coopers Sparkling Ale", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Carlton Dry", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Carlton Draught", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Victoria Bitter", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Hahn SuperDry", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "XXXX Gold", options: ["6 Pack", "30 Pack Carton"] },
+    { name: "Corona", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Asahi Super Dry", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Peroni", options: ["6 Pack", "24 Pack Carton"] }
+  ]},
+  { category: "Cider", icon: "🍏", items: [
+    { name: "Somersby Apple", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Somersby Pear", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Strongbow", options: ["6 Pack", "24 Pack Carton"] },
+    { name: "Mercury Cider", options: ["6 Pack", "24 Pack Carton"] }
+  ]},
+  { category: "RTDs / Premix", icon: "🥫", items: [
+    { name: "Canadian Club & Dry", options: ["4 Pack", "10 Pack", "24 Pack Carton"] },
+    { name: "Jack Daniel's & Cola", options: ["4 Pack", "10 Pack", "24 Pack Carton"] },
+    { name: "Bundaberg Rum & Cola", options: ["4 Pack", "10 Pack", "24 Pack Carton"] },
+    { name: "Jim Beam & Cola", options: ["4 Pack", "10 Pack", "24 Pack Carton"] },
+    { name: "Smirnoff Ice", options: ["4 Pack", "10 Pack", "24 Pack Carton"] },
+    { name: "Gordon's Pink Gin & Soda", options: ["4 Pack", "10 Pack", "24 Pack Carton"] },
+    { name: "Brookvale Union", options: ["4 Pack", "10 Pack", "24 Pack Carton"] }
+  ]},
+  { category: "Wine", icon: "🍷", items: [
+    { name: "House Sauvignon Blanc", options: ["750 mL Bottle", "6 Bottle Case", "12 Bottle Case"] },
+    { name: "House Shiraz", options: ["750 mL Bottle", "6 Bottle Case", "12 Bottle Case"] },
+    { name: "House Sparkling", options: ["750 mL Bottle", "6 Bottle Case", "12 Bottle Case"] },
+    { name: "Jacob's Creek", options: ["750 mL Bottle", "6 Bottle Case", "12 Bottle Case"] },
+    { name: "19 Crimes", options: ["750 mL Bottle", "6 Bottle Case", "12 Bottle Case"] },
+    { name: "Pepperjack", options: ["750 mL Bottle", "6 Bottle Case", "12 Bottle Case"] },
+    { name: "Grant Burge", options: ["750 mL Bottle", "6 Bottle Case", "12 Bottle Case"] }
+  ]},
+  { category: "Spirits", icon: "🥃", items: [
+    { name: "Gordon's Gin", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Bombay Sapphire", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Tanqueray", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Bundaberg Rum", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Captain Morgan", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Jack Daniel's", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Jim Beam", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Johnnie Walker Red", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Johnnie Walker Black", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Absolut Vodka", options: ["700 mL Bottle", "1 L Bottle"] },
+    { name: "Bacardi", options: ["700 mL Bottle", "1 L Bottle"] }
+  ]},
+  { category: "Soft Drinks, Water & Ice", icon: "🥤", items: [
+    { name: "Coca-Cola", options: ["1.25 L Bottle", "2 L Bottle", "24 Pack Cans"] },
+    { name: "Coca-Cola No Sugar", options: ["1.25 L Bottle", "2 L Bottle", "24 Pack Cans"] },
+    { name: "Diet Coke", options: ["1.25 L Bottle", "2 L Bottle", "24 Pack Cans"] },
+    { name: "Sprite", options: ["1.25 L Bottle", "2 L Bottle", "24 Pack Cans"] },
+    { name: "Fanta", options: ["1.25 L Bottle", "2 L Bottle", "24 Pack Cans"] },
+    { name: "Solo", options: ["1.25 L Bottle", "2 L Bottle", "24 Pack Cans"] },
+    { name: "Soda Water", options: ["1 L Bottle", "24 Pack Cans"] },
+    { name: "Tonic Water", options: ["1 L Bottle", "24 Pack Cans"] },
+    { name: "Dry Ginger Ale", options: ["1 L Bottle", "24 Pack Cans"] },
+    { name: "Still Water", options: ["600 mL Bottle", "24 Bottle Case"] },
+    { name: "Sparkling Water", options: ["750 mL Bottle", "12 Bottle Case"] },
+    { name: "Bag of Ice", options: ["Single Bag"] }
+  ]}
 ];
