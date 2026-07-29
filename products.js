@@ -1,4 +1,28 @@
 // CHRISTIES BEACH HOTEL TRADE PRODUCT CATALOGUE
+window.ACCOUNT_FAVOURITES = {
+  "Christies Beach Football Club": [
+    "Great Northern Super Crisp",
+    "Canadian Club & Dry",
+    "Coca-Cola",
+    "Coca-Cola No Sugar",
+    "Bag of Ice"
+  ],
+  "SOTSC": [
+    "Great Northern Super Crisp",
+    "Coopers Pale Ale",
+    "Coca-Cola",
+    "Sprite",
+    "Bag of Ice"
+  ],
+  "South Adelaide Panthers Soccer Club": [
+    "Great Northern Original",
+    "Carlton Dry",
+    "Canadian Club & Dry",
+    "Coca-Cola",
+    "Bag of Ice"
+  ]
+};
+
 window.PRODUCTS = [
   { category: "Beer", icon: "🍺", items: [
     { name: "Great Northern Super Crisp", options: ["6 Pack", "24 Pack Carton"] },

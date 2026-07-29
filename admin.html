@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Christies Trade Orders Admin</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .admin-wrap{max-width:1200px;margin:auto;padding:24px}
+    .admin-toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+    .admin-toolbar input,.admin-toolbar select{max-width:320px}
+    .table-wrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:12px}
+    table{width:100%;border-collapse:collapse;min-width:950px}
+    th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    th{background:#f2f7f9;position:sticky;top:0}
+    .status{display:inline-block;padding:4px 9px;border-radius:999px;background:#eef4f6;font-weight:800;font-size:.78rem}
+    .notice{background:#fff8df;border:1px solid #e8d28a;padding:14px;border-radius:10px}
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <p class="kicker">CHRISTIES BEACH HOTEL</p>
+      <h1>Trade Orders Admin</h1>
+      <p>View and search submitted trade orders.</p>
+    </div>
+    <a class="button-link" href="index.html">Customer order page</a>
+  </div>
+</header>
+<main class="admin-wrap">
+  <div class="notice">
+    To activate this page, publish the Orders sheet as CSV and paste the CSV address into <strong>admin.js</strong>.
+    Until then, keep managing orders directly in Google Sheets.
+  </div>
+  <div class="admin-toolbar">
+    <input id="search" type="search" placeholder="Search customer, contact or product">
+    <select id="statusFilter">
+      <option value="">All statuses</option>
+      <option>New</option><option>Confirming Stock</option><option>Picking</option>
+      <option>Ready</option><option>Completed</option><option>Cancelled</option>
+    </select>
+    <button id="refresh">Refresh</button>
+  </div>
+  <div class="order-stats">
+    <div><strong id="totalOrders">0</strong><span>Total orders</span></div>
+    <div><strong id="newOrders">0</strong><span>New orders</span></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr id="tableHead"></tr></thead>
+      <tbody id="tableBody"><tr><td>No data connected yet.</td></tr></tbody>
+    </table>
+  </div>
+</main>
+<script src="admin.js"></script>
+</body>
+</html>

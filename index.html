@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Christies Beach Hotel | Trade Ordering Portal</title>
+  <title>CHRISTIES BEACH HOTEL | Trade Ordering</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,8 +11,8 @@
     <div class="hero-inner">
       <div class="brand-mark">CBH</div>
       <div>
-        <p class="eyebrow">Christies Beach Hotel Bottle Shop</p>
-        <h1>Trade Ordering Portal</h1>
+        <p class="eyebrow">CHRISTIES BEACH HOTEL Bottle Shop</p>
+        <h1>Trade Ordering</h1>
         <p class="intro">For approved trade accounts only. Collection is available daily. Deliveries are completed on Thursdays.</p>
       </div>
     </div>
@@ -135,6 +135,8 @@
           <button type="button" id="clearOrder" class="secondary">Clear products</button>
         </div>
 
+        <section id="favouritesSection" class="card hidden"></section>
+
         <div id="productCategories"></div>
       </section>
 
@@ -221,6 +223,10 @@
           <textarea id="notes" rows="4" placeholder="Special requests, event details, timing notes..."></textarea>
         </label>
 
+        <div class="order-stats">
+          <div><strong id="lineCount">0</strong><span>Product lines</span></div>
+          <div><strong id="unitCount">0</strong><span>Total packs/bottles</span></div>
+        </div>
         <div id="orderSummary" class="summary empty">No products selected yet.</div>
 
         <label class="confirm-line">
@@ -239,7 +245,7 @@
   <div class="cart-pill">Cart: <span id="cartCount">0</span></div>
 
   <footer>
-    Christies Beach Hotel Bottle Shop · Trade Ordering Portal
+    CHRISTIES BEACH HOTEL Bottle Shop · Trade Ordering
   </footer>
 
   <script src="products.js"></script>

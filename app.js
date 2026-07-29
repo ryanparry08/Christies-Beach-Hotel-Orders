@@ -2,10 +2,13 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyz4JYtxsT1W4tPyYkK7
 
 const form = document.getElementById("orderForm");
 const categoryContainer = document.getElementById("productCategories");
+const favouritesContainer = document.getElementById("favouritesSection");
 const summary = document.getElementById("orderSummary");
 const formMessage = document.getElementById("formMessage");
 const submitButton = document.getElementById("submitButton");
 const cartCount = document.getElementById("cartCount");
+const lineCount = document.getElementById("lineCount");
+const unitCount = document.getElementById("unitCount");
 let cart = [];
 
 function nextThursdays(count = 10) {
@@ -37,6 +40,82 @@ function populateDeliveryDates() {
   });
 }
 
+function allProducts() {
+  return window.PRODUCTS.flatMap(group =>
+    group.items.map(item => ({...item, category: group.category, icon: group.icon}))
+  );
+}
+
+function cardMarkup(item, suffix = "") {
+  const safeId = `${item.category}-${item.name}-${suffix}`.replace(/[^a-z0-9]/gi,"-").toLowerCase();
+  return `
+    <div class="product-card">
+      <span class="category-tag">${item.category}</span>
+      <h3>${item.name}</h3>
+      <label>Pack size
+        <select id="${safeId}-pack">
+          <option value="">Select pack size</option>
+          ${item.options.map(option => `<option>${option}</option>`).join("")}
+        </select>
+      </label>
+      <div class="quantity-row">
+        <label>Quantity
+          <input id="${safeId}-qty" type="number" min="1" step="1" value="1">
+        </label>
+        <button type="button" class="add-button"
+          data-category="${item.category}"
+          data-product="${item.name}"
+          data-pack-id="${safeId}-pack"
+          data-qty-id="${safeId}-qty">Add</button>
+      </div>
+    </div>`;
+}
+
+function bindAddButtons(scope = document) {
+  scope.querySelectorAll(".add-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const packSize = document.getElementById(button.dataset.packId).value;
+      const quantity = Number(document.getElementById(button.dataset.qtyId).value || 0);
+      if (!packSize) return alert("Please select a pack size.");
+      if (quantity < 1) return alert("Please enter a quantity of at least 1.");
+
+      const existing = cart.find(item =>
+        item.product === button.dataset.product && item.packSize === packSize
+      );
+      if (existing) existing.quantity += quantity;
+      else cart.push({
+        category: button.dataset.category,
+        product: button.dataset.product,
+        packaging: "As selected",
+        packSize,
+        quantity
+      });
+      updateSummary();
+      document.getElementById(button.dataset.qtyId).value = 1;
+      button.textContent = "Added ✓";
+      setTimeout(() => button.textContent = "Add", 900);
+    });
+  });
+}
+
+function renderFavourites(account) {
+  const favourites = window.ACCOUNT_FAVOURITES[account] || [];
+  if (!favourites.length) {
+    favouritesContainer.innerHTML = "";
+    favouritesContainer.classList.add("hidden");
+    return;
+  }
+  const products = allProducts().filter(item => favourites.includes(item.name));
+  favouritesContainer.classList.remove("hidden");
+  favouritesContainer.innerHTML = `
+    <div class="section-heading-row">
+      <div><span class="eyebrow">QUICK ORDER</span><h2>Your usual products</h2></div>
+      <span class="muted">Based on this club's common orders</span>
+    </div>
+    <div class="product-card-grid">${products.map((item,i) => cardMarkup(item, `fav-${i}`)).join("")}</div>`;
+  bindAddButtons(favouritesContainer);
+}
+
 function renderProducts(filter = "") {
   const query = filter.trim().toLowerCase();
   categoryContainer.innerHTML = "";
@@ -58,57 +137,12 @@ function renderProducts(filter = "") {
 
     const grid = document.createElement("div");
     grid.className = "product-card-grid";
-
-    items.forEach(item => {
-      const safeId = `${group.category}-${item.name}`.replace(/[^a-z0-9]/gi,"-").toLowerCase();
-      const card = document.createElement("div");
-      card.className = "product-card";
-      card.innerHTML = `
-        <span class="category-tag">${group.category}</span>
-        <h3>${item.name}</h3>
-        <label>Pack size
-          <select id="${safeId}-pack">
-            <option value="">Select pack size</option>
-            ${item.options.map(option => `<option>${option}</option>`).join("")}
-          </select>
-        </label>
-        <label>Quantity
-          <input id="${safeId}-qty" type="number" min="1" step="1" value="1">
-        </label>
-        <button type="button" class="add-button"
-          data-category="${group.category}"
-          data-product="${item.name}"
-          data-pack-id="${safeId}-pack"
-          data-qty-id="${safeId}-qty">Add to order</button>
-      `;
-      grid.appendChild(card);
-    });
-
+    grid.innerHTML = items.map((item,i) => cardMarkup({...item, category: group.category}, `main-${i}`)).join("");
     details.appendChild(grid);
     categoryContainer.appendChild(details);
   });
 
-  document.querySelectorAll(".add-button").forEach(button => {
-    button.addEventListener("click", () => {
-      const packSize = document.getElementById(button.dataset.packId).value;
-      const quantity = Number(document.getElementById(button.dataset.qtyId).value || 0);
-      if (!packSize) return alert("Please select a pack size.");
-      if (quantity < 1) return alert("Please enter a quantity of at least 1.");
-
-      const existing = cart.find(item =>
-        item.product === button.dataset.product && item.packSize === packSize
-      );
-      if (existing) existing.quantity += quantity;
-      else cart.push({
-        category: button.dataset.category,
-        product: button.dataset.product,
-        packaging: "As selected",
-        packSize,
-        quantity
-      });
-      updateSummary();
-    });
-  });
+  bindAddButtons(categoryContainer);
 }
 
 function removeCartItem(index) {
@@ -123,8 +157,18 @@ function updateCartQuantity(index,value) {
   updateSummary();
 }
 
+function changeCartQuantity(index, delta) {
+  cart[index].quantity += delta;
+  if (cart[index].quantity < 1) cart.splice(index,1);
+  updateSummary();
+}
+
 function updateSummary() {
-  cartCount.textContent = cart.reduce((sum,item) => sum + item.quantity, 0);
+  const totalUnits = cart.reduce((sum,item) => sum + item.quantity, 0);
+  cartCount.textContent = totalUnits;
+  lineCount.textContent = cart.length;
+  unitCount.textContent = totalUnits;
+
   if (!cart.length) {
     summary.className = "summary empty";
     summary.innerHTML = "<strong>Your order is empty.</strong><span>Add products using the buttons above.</span>";
@@ -137,7 +181,11 @@ function updateSummary() {
       ${cart.map((item,index) => `
         <div class="cart-line">
           <div><strong>${item.product}</strong><span>${item.packSize}</span></div>
-          <label>Qty<input type="number" min="1" value="${item.quantity}" onchange="updateCartQuantity(${index},this.value)"></label>
+          <div class="qty-control">
+            <button type="button" onclick="changeCartQuantity(${index},-1)">−</button>
+            <input type="number" min="1" value="${item.quantity}" onchange="updateCartQuantity(${index},this.value)">
+            <button type="button" onclick="changeCartQuantity(${index},1)">+</button>
+          </div>
           <button type="button" class="remove-button" onclick="removeCartItem(${index})">Remove</button>
         </div>
       `).join("")}
@@ -154,6 +202,8 @@ function toggleOrderType(value) {
 document.querySelectorAll('input[name="orderType"]').forEach(radio =>
   radio.addEventListener("change", e => toggleOrderType(e.target.value))
 );
+
+document.getElementById("account").addEventListener("change", e => renderFavourites(e.target.value));
 
 document.getElementById("otherToggle").addEventListener("change", e =>
   document.getElementById("otherFields").classList.toggle("hidden", !e.target.checked)
@@ -223,6 +273,7 @@ form.addEventListener("submit", event => {
     form.reset();
     cart = [];
     updateSummary();
+    renderFavourites("");
     toggleOrderType("");
     document.getElementById("otherFields").classList.add("hidden");
     submitButton.disabled = false;
@@ -234,6 +285,8 @@ form.addEventListener("submit", event => {
 
 populateDeliveryDates();
 renderProducts();
+renderFavourites("");
 updateSummary();
 window.removeCartItem = removeCartItem;
 window.updateCartQuantity = updateCartQuantity;
+window.changeCartQuantity = changeCartQuantity;
